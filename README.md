@@ -175,48 +175,20 @@ The **strength of stabilization scales with confidence**.
 
 ### High-Level Flow
 
+
 ```mermaid
 graph TD
-    A[Metric Stream] --> B[Data Preprocessor]
-    B --> C[Bayesian Change-Point Detector]
-    C --> D{Probability > Threshold?}
-    D -->|No| E[Continue Monitoring]
-    D -->|Yes| F[Early Warning Analyzer]
-    F --> G[Mitigation Proposal Engine]
-    G --> H[Human Approval Dashboard]
-    
-    H --> I{User Responded in Time?}
-    I -->|Yes| J{User Decision}
-    I -->|No| K[Check Emergency Threshold]
-    
-    J -->|Approve| L[Action Executor]
-    J -->|Reject| M[Log Decision]
-    
-    K --> N{Emergency Threshold Breached?}
-    N -->|No| O[Continue Waiting]
-    N -->|Yes| P[Automatic Safe Mode]
-    
-    O --> H
-    
-    L --> Q[Safe, Reversible Action]
-    P --> Q
-    Q --> R[System]
-    R --> A
-    
-    subgraph "Normal Operation"
-        H
-        J
-        L
-        M
-    end
-    
-    subgraph "Emergency Circuit Breaker"
-        I
-        K
-        N
-        P
-    end
-    
-    style P fill:#ff6b6b,color:white
-    style K fill:#ffd166
-    style N fill:#ffd166
+    A[Metric Time-Series Stream] --> B[Bayesian Change-Point Detector]
+    B --> C{Posterior Probability > Confidence Threshold?}
+
+    C -->|Yes| D[Early Signal Analyzer]
+    D --> E[Mitigation Proposal Engine]
+    E --> F[Human Approval Interface]
+    F --> G{Approved?}
+    G -->|Yes| H[Safe, Reversible Action Executor]
+    G -->|No| I[Stabilization Mode]
+    I --> J[Risk Dampening & Enhanced Monitoring]
+
+    C -->|No| K[Adaptive Observation Mode]
+    K --> L[Refine Baselines & Accumulate Evidence]
+    L --> A
