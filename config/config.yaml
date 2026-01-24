@@ -1,0 +1,171 @@
+# RegimeShift Sentinel Configuration
+
+# Detection Parameters
+detection:
+  hazard_rate: 0.02  # Expected time between change points (1/λ)
+  threshold: 0.5     # Probability threshold for declaring change point
+  min_segment_length: 10  # Minimum length for a regime segment
+  max_segment_length: 1000  # Maximum length for a regime segment
+
+# Early Warning Signals
+early_warning:
+  window_size: 20    # Size of sliding window for statistics
+  step_size: 5       # Step between windows
+  warning_threshold: 0.6  # Threshold for warning score
+  monitor_signals:
+    - variance
+    - autocorrelation
+    - skewness
+    - return_rate
+    - spectral_ratio
+
+# Mitigation Engine
+mitigation:
+  max_actions_per_suggestion: 3
+  min_confidence: 0.3
+  risk_tolerance: medium  # low, medium, high
+  prefer_reversible: true
+  require_prerequisites: true
+  
+  # Action categories
+  action_categories:
+    ml_training:
+      - reduce_learning_rate
+      - pause_training
+      - rollback_checkpoint
+      - increase_batch_size
+    production_service:
+      - restart_service
+      - scale_up_resources
+      - enable_safe_mode
+    data_pipeline:
+      - restart_service
+      - enable_debug_logging
+
+# Visualization
+visualization:
+  theme: plotly_white
+  color_scheme:
+    stable: "#10b981"    # Green
+    warning: "#f59e0b"   # Yellow
+    danger: "#dc2626"    # Red
+    change_point: "#8b5cf6"  # Purple
+    
+  plot_config:
+    width: 1000
+    height: 600
+    template: "plotly_white"
+
+# Data Processing
+data:
+  interpolation_method: linear  # linear, quadratic, cubic
+  outlier_detection: iqr       # iqr, zscore, none
+  zscore_threshold: 3.0
+  iqr_multiplier: 1.5
+  
+  # Missing value handling
+  missing_values:
+    strategy: interpolate  # interpolate, drop, fill_mean
+    max_gap: 10            # Maximum consecutive missing values to interpolate
+
+# Logging
+logging:
+  level: INFO  # DEBUG, INFO, WARNING, ERROR
+  file: logs/regimeshift.log
+  max_file_size: 10485760  # 10MB
+  backup_count: 5
+  
+  # What to log
+  log_detections: true
+  log_warnings: true
+  log_actions: true
+  log_performance: true
+
+# Performance
+performance:
+  batch_size: 1000  # Process data in batches of this size
+  use_multiprocessing: false
+  max_workers: 4
+  cache_results: true
+  cache_ttl: 3600  # Cache time-to-live in seconds
+
+# API Configuration (if using external services)
+api:
+  openai:
+    enabled: false
+    api_key: ""  # Set via environment variable
+    model: "gpt-4"
+    max_tokens: 500
+    temperature: 0.7
+    
+  # Monitoring integrations
+  prometheus:
+    enabled: false
+    url: "http://localhost:9090"
+    
+  grafana:
+    enabled: false
+    url: "http://localhost:3000"
+
+# System Profiles
+system_profiles:
+  ml_training:
+    description: "Machine Learning Training Pipeline"
+    typical_metrics:
+      - training_loss
+      - validation_loss
+      - learning_rate
+      - gradient_norm
+      - accuracy
+    checkpoints: true
+    can_pause: true
+    
+  scientific_simulation:
+    description: "Scientific/Computational Simulation"
+    typical_metrics:
+      - energy
+      - temperature
+      - pressure
+      - convergence
+    checkpoints: false
+    can_pause: true
+    
+  data_pipeline:
+    description: "ETL/Data Processing Pipeline"
+    typical_metrics:
+      - throughput
+      - latency
+      - error_rate
+      - queue_size
+    checkpoints: true
+    can_pause: false
+    
+  production_service:
+    description: "Production Web Service"
+    typical_metrics:
+      - response_time
+      - error_rate
+      - cpu_usage
+      - memory_usage
+    checkpoints: false
+    can_pause: false
+
+# Alerting
+alerting:
+  enabled: false
+  channels:
+    email:
+      enabled: false
+      recipients: []
+    slack:
+      enabled: false
+      webhook_url: ""
+    webhook:
+      enabled: false
+      url: ""
+  
+  # Alert thresholds
+  thresholds:
+    warning_score: 0.6
+    change_probability: 0.7
+    consecutive_warnings: 3
