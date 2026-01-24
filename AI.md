@@ -1,8 +1,8 @@
-# AI Design & Reasoning – RegimeShift Sentinel
+# AI Design & Reasoning – Canary
 
 ## 1. Role of AI in the Platform
 
-In RegimeShift Sentinel, AI is not an auxiliary feature or post-processing tool.
+In Canary, AI is not an auxiliary feature or post-processing tool.
 It is the **core decision-making engine** that determines how the system observes,
 interprets, and responds to potential failure conditions.
 
@@ -78,7 +78,7 @@ At no point is the system passive or unsafe.
 
 ## 5. Human-in-the-Loop by Design
 
-RegimeShift Sentinel is intentionally **advisory, not autonomous**.
+Canary is intentionally **advisory, not autonomous**.
 
 Human operators:
 - Approve or reject mitigation actions
@@ -107,7 +107,7 @@ Stabilization Mode ensures the system remains safe even when actions are rejecte
 
 ## 7. Why This Platform Is AI-Native
 
-RegimeShift Sentinel is AI-native because:
+Canary is AI-native because:
 - AI reasoning is central to system operation
 - Uncertainty directly influences control flow
 - System behavior adapts dynamically based on probabilistic inference
