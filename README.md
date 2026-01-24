@@ -132,17 +132,48 @@ No destructive or irreversible actions are taken.
 
 ```mermaid
 graph TD
-    A[Metric Time-Series Stream] --> B[Bayesian Change-Point Detector]
-    B --> C{Posterior Probability > Confidence Threshold?}
-
-    C -->|Yes| D[Early Signal Analyzer]
-    D --> E[Mitigation Proposal Engine]
-    E --> F[Human Approval Interface]
-    F --> G{Approved?}
-    G -->|Yes| H[Safe, Reversible Action Executor]
-    G -->|No| I[Stabilization Mode]
-    I --> J[Risk Dampening & Enhanced Monitoring]
-
-    C -->|No| K[Adaptive Observation Mode]
-    K --> L[Refine Baselines & Accumulate Evidence]
-    L --> A
+    A[Metric Stream] --> B[Data Preprocessor]
+    B --> C[Bayesian Change-Point Detector]
+    C --> D{Probability > Threshold?}
+    D -->|No| E[Continue Monitoring]
+    D -->|Yes| F[Early Warning Analyzer]
+    F --> G[Mitigation Proposal Engine]
+    G --> H[Human Approval Dashboard]
+    H --> I{User Decision}
+    I -->|Approve| J[Action Executor]
+    I -->|Reject| K[Log Decision]
+    J --> L[Safe, Reversible Action]
+    L --> M[System]
+    M --> A
+    
+    subgraph "Core Detection"
+        C
+        F
+    end
+    
+    subgraph "Safety Layer"
+        H
+        I
+        K
+    end
+    
+    subgraph "Action Layer"
+        G
+        J
+        L
+    end
+    
+    N[Configuration] --> B
+    N --> C
+    N --> F
+    N --> G
+    
+    O[Historical Data] --> F
+    O --> G
+    
+    style A fill:#e1f5fe
+    style C fill:#f3e5f5
+    style F fill:#e8f5e8
+    style H fill:#fff3e0
+    style J fill:#ffebee
+    style L fill:#e8f5e8
