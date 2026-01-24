@@ -175,6 +175,7 @@ The **strength of stabilization scales with confidence**.
 
 ### High-Level Flow
 
+```mermaid
 graph TD
     A[Metric Stream] --> B[Data Preprocessor]
     B --> C[Bayesian Change-Point Detector]
