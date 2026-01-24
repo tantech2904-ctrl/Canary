@@ -1,41 +1,58 @@
 # RegimeShift Sentinel  
-> Early warning signals for high-stakes computational systems
+> An AI-native early warning platform for high-stakes computational systems
 
 ## 1. Problem  
-In machine learning training, scientific simulations, and production data pipelines, failures manifest as **gradual drifts** in system behavior — not sudden crashes. By the time standard threshold-based monitors fire, significant resources (compute, time, data) have already been wasted, and outcomes are compromised. The pain is especially acute in **long-running, expensive, or non-reproducible workflows** where late detection means irreversible loss.
+In machine learning training, scientific simulations, and production data pipelines, failures rarely occur as sudden crashes. Instead, they emerge as **gradual regime shifts** in system behavior — changes in variance, correlation structure, or dynamics that standard threshold-based monitors fail to detect in time.
+
+By the time conventional alerts fire, significant resources (compute, time, data) have already been wasted, and outcomes may be irreversibly compromised. This is especially damaging in **long-running, expensive, or non-reproducible workflows**, where late detection offers no meaningful recovery.
+
+---
 
 ## 2. Constraints & Assumptions  
-- **Early detection** requires analyzing subtle statistical properties (variance, autocorrelation) beyond simple thresholds.
-- Mitigation suggestions must be **safe, reversible, and human-approved** — no fully autonomous actions in high-stakes contexts.
-- The system must be **domain-agnostic** — working on any metric time-series without deep semantic knowledge.
-- It must run **lightweight enough** to be used in real-time monitoring contexts without heavy overhead.
+- **Early detection** requires modeling subtle statistical properties (e.g., variance, autocorrelation, distributional form), not just pointwise thresholds.
+- Mitigation must be **safe, reversible, and human-approved** — fully autonomous actions are inappropriate in high-stakes environments.
+- The system must be **domain-agnostic**, operating on metric time-series without relying on task-specific semantics.
+- Runtime overhead must remain **lightweight** to support real-time or near-real-time monitoring.
+
+These constraints strongly favor probabilistic, interpretable approaches over black-box automation.
+
+---
 
 ## 3. Proposed Solution  
-We combine **Bayesian change-point detection** (for robust, uncertainty-aware shift detection) with a **rule-based + lightweight AI mitigation suggester**.  
+RegimeShift Sentinel is an **AI-native monitoring platform** that provides early warnings by combining:
 
-**Why Bayesian?**  
-- Provides probabilistic early warnings (e.g., “85% probability of regime shift”) rather than binary alerts.  
-- Handles noisy, real-world data better than sliding-window heuristics.  
+- **Bayesian Change-Point Detection (BCPD)** for uncertainty-aware regime shift detection  
+- A **confidence-conditioned mitigation suggestion engine** designed for human-in-the-loop decision making  
 
-**Why human-in-the-loop?**  
-- Ensures safety — no automatic model changes, configuration edits, or termination without explicit approval.  
-- Builds trust and allows domain experts to incorporate contextual knowledge.  
+### Why Bayesian Change-Point Detection?
+- Produces probabilistic outputs (e.g., “85% posterior probability of regime shift”) instead of binary alarms  
+- Naturally handles noisy, real-world signals  
+- Enables reasoning under uncertainty — critical for early warnings  
 
-**Trade-offs made:**  
-- We favor **interpretability and safety** over full automation.  
-- We focus on **one deep detection algorithm** instead of many shallow features.
+### Why Human-in-the-Loop?
+- Prevents unsafe automated actions  
+- Allows domain experts to incorporate contextual knowledge  
+- Builds trust in high-impact operational settings  
+
+### Key Design Trade-offs
+- We prioritize **interpretability and safety** over full autonomy  
+- We focus on **one robust detection mechanism** rather than many shallow heuristics  
+- Mitigation suggestions are **advisory**, not enforced  
+
+---
 
 ## 4. System Architecture  
 
+### High-Level Flow
 ```mermaid
 graph TD
-    A[Metric Stream] --> B[Bayesian Change-Point Detector]
-    B --> C{Probability > Threshold?}
+    A[Metric Time-Series Stream] --> B[Bayesian Change-Point Detector]
+    B --> C{Posterior Probability > Confidence Threshold?}
     C -->|No| A
     C -->|Yes| D[Early Signal Analyzer]
     D --> E[Mitigation Proposal Engine]
-    E --> F[Human Approval Dashboard]
-    F --> G[Approved?]
-    G -->|Yes| H[Safe Action Executor]
-    G -->|No| I[Log & Continue Monitoring]
-    H --> J[Reversible Action: e.g., reduce LR, pause, rollback]
+    E --> F[Human Approval Interface]
+    F --> G{Approved?}
+    G -->|Yes| H[Safe, Reversible Action Executor]
+    G -->|No| I[Log Event & Continue Monitoring]
+    H --> J[Examples: pause run, reduce LR, rollback checkpoint]
