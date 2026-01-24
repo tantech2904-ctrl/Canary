@@ -1,0 +1,18 @@
+.dev/
+
+# Local env / secrets
+backend/.env
+frontend/.env
+
+# Python
+backend/.venv/
+backend/__pycache__/
+**/__pycache__/
+*.py[cod]
+
+# Node
+frontend/node_modules/
+frontend/dist/
+
+# OS
+.DS_Store
