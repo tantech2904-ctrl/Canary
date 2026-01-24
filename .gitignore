@@ -10,9 +10,22 @@ frontend/.env.production.local
 
 # Python
 backend/.venv/
+.venv/
 backend/__pycache__/
 **/__pycache__/
 *.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.nox/
+
+# Databases / local data
+*.db
+*.sqlite
+*.sqlite3
 
 # Node
 frontend/node_modules/
@@ -20,13 +33,25 @@ frontend/dist/
 frontend/dist-ssr/
 frontend/.npm-cache/
 frontend/.vite/
+**/node_modules/
+**/dist/
+**/dist-ssr/
+**/.npm-cache/
+**/.vite/
+**/.turbo/
+**/.next/
+**/.parcel-cache/
+**/.cache/
 
 # Tests / caches
-.pytest_cache/
-.mypy_cache/
 .coverage
 coverage/
 *.log
+
+# Editor/OS
+.DS_Store
+.idea/
+.vscode/
 
 # OS
 .DS_Store
