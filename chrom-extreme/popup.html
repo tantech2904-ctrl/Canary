@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="styles/popup.css">
+  <link rel="stylesheet" href="styles/common.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1 class="title">🚨 RegimeShift Sentinel</h1>
+      <div class="status-indicator" id="statusIndicator"></div>
+    </header>
+
+    <div class="dashboard-summary">
+      <div class="metric-card">
+        <h3>System Health</h3>
+        <div class="metric-value" id="systemHealth">--</div>
+        <div class="metric-trend" id="systemTrend">--</div>
+      </div>
+      
+      <div class="metric-card">
+        <h3>Memory Usage</h3>
+        <div class="metric-value" id="memoryUsage">--</div>
+        <progress id="memoryProgress" value="0" max="100"></progress>
+      </div>
+      
+      <div class="metric-card">
+        <h3>CPU Load</h3>
+        <div class="metric-value" id="cpuLoad">--</div>
+        <progress id="cpuProgress" value="0" max="100"></progress>
+      </div>
+    </div>
+
+    <div class="warning-panel" id="warningPanel" style="display: none;">
+      <div class="warning-header">
+        <span class="warning-icon">⚠️</span>
+        <h3>Regime Shift Detected</h3>
+      </div>
+      <div class="warning-details" id="warningDetails"></div>
+      <div class="confidence-level">
+        Confidence: <span id="confidenceLevel">0%</span>
+      </div>
+      <div class="action-buttons">
+        <button id="stabilizeBtn" class="btn btn-stabilize">Stabilize</button>
+        <button id="ignoreBtn" class="btn btn-ignore">Monitor Closely</button>
+        <button id="detailsBtn" class="btn btn-details">View Details</button>
+      </div>
+    </div>
+
+    <div class="mode-indicator">
+      <span class="mode-label">Mode:</span>
+      <span class="mode-value" id="currentMode">Adaptive Observation</span>
+    </div>
+
+    <div class="controls">
+      <button id="openDashboard" class="btn btn-primary">Open Dashboard</button>
+      <button id="settingsBtn" class="btn btn-secondary">Settings</button>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
