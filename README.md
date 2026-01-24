@@ -5,30 +5,30 @@
 
 ## 1. Overview
 
-RegimeShift Sentinel is an **AI-native early warning platform** designed to detect **gradual, probabilistic shifts** in the behavior of complex computational systems *before* they result in failure.
+RegimeShift Sentinel is an **AI-native early warning platform** designed to detect **gradual, probabilistic regime shifts** in complex computational systems *before* they escalate into failures.
 
-Unlike traditional monitoring systems that rely on fixed thresholds or reactive alerts, RegimeShift Sentinel reasons about **changes in the underlying data-generating process** using **Bayesian Change-Point Detection (BCPD)** and responds with **uncertainty-aware, safety-first interventions**.
+Unlike traditional monitoring tools that rely on fixed thresholds and reactive alerts, RegimeShift Sentinel reasons about **changes in the underlying data-generating process** using **Bayesian Change-Point Detection (BCPD)** and responds through **uncertainty-aware, safety-first decision logic**.
 
-The platform is intended for **long-running, expensive, or non-reproducible workflows** where late detection leads to irreversible loss.
+The platform targets **long-running, expensive, or non-reproducible workflows**, where late detection results in irreversible loss.
 
 ---
 
 ## 2. Problem Statement
 
 In machine learning training runs, scientific simulations, and production data pipelines, failures rarely occur as sudden crashes.  
-Instead, they emerge as **gradual regime shifts** — subtle changes in variance, correlation structure, or temporal dynamics.
+Instead, they manifest as **gradual behavioral shifts** — changes in variance, correlation structure, or temporal dynamics.
 
 Conventional monitoring systems:
 - Depend on static thresholds  
-- Trigger alerts only after damage is done  
-- Provide no notion of confidence or uncertainty  
+- Trigger alerts only after observable failure  
+- Offer no notion of confidence or uncertainty  
 
 As a result:
 - Compute resources are wasted  
 - Experimental results become invalid  
 - Failures are detected too late to recover  
 
-Early detection requires **probabilistic reasoning over time**, not reactive rules.
+Effective early warning requires **probabilistic reasoning over time**, not reactive rule-based alerts.
 
 ---
 
@@ -36,9 +36,9 @@ Early detection requires **probabilistic reasoning over time**, not reactive rul
 
 The platform is designed under the following constraints:
 
-- **Early detection** must analyze statistical properties (variance, autocorrelation, distributional change), not just raw values  
-- **High-stakes systems require safety** — no irreversible or autonomous actions  
-- All mitigation must be **human-approved and reversible**  
+- **Early detection** must analyze statistical properties (variance, autocorrelation, distributional change), not just pointwise values  
+- **High-stakes systems require safety** — no irreversible or fully autonomous actions  
+- All mitigations must be **human-approved and reversible**  
 - The system must be **domain-agnostic**, operating on metric time-series without semantic assumptions  
 - Runtime overhead must remain **lightweight** to support real-time monitoring  
 
@@ -48,14 +48,15 @@ These constraints favor **interpretable, uncertainty-aware AI** over black-box a
 
 ## 4. Proposed Solution
 
-RegimeShift Sentinel combines:
+RegimeShift Sentinel is an **AI-native monitoring platform** that combines:
 
 - **Bayesian Change-Point Detection (BCPD)** for probabilistic regime shift detection  
+- **Adaptive observation** when confidence is insufficient  
 - A **confidence-conditioned mitigation suggestion engine**  
-- A **human-in-the-loop decision interface**  
+- **Human-in-the-loop decision making**  
 - A built-in **stabilization mechanism** to prevent cascading failure  
 
-The system continuously learns a baseline of normal behavior and flags statistically significant deviations **before observable failure occurs**.
+The platform continuously learns a baseline of normal behavior and reasons about **when that behavior fundamentally changes**.
 
 ---
 
@@ -63,20 +64,36 @@ The system continuously learns a baseline of normal behavior and flags statistic
 
 BCPD is central to the platform because it:
 
-- Detects **changes in system dynamics**, not just outliers  
+- Detects **changes in system dynamics**, not just anomalies  
 - Produces **posterior probabilities** instead of binary alerts  
 - Handles noisy, real-world signals robustly  
-- Enables reasoning under uncertainty  
+- Enables principled reasoning under uncertainty  
 
 Example output:
 
 > “There is an 81% posterior probability that a regime shift occurred at timestamp T₈₂₄.”
 
-This enables **early, informed intervention** rather than reactive firefighting.
+This allows **early, confidence-aware intervention** rather than reactive firefighting.
 
 ---
 
-## 6. Human-in-the-Loop by Design
+## 6. Low-Confidence Handling: Adaptive Observation Mode
+
+Low confidence is **not ignored**.
+
+When the posterior probability of a regime shift does **not** exceed the confidence threshold, the system enters **Adaptive Observation Mode** instead of remaining passive.
+
+In this mode, the platform actively improves decision quality by:
+- Increasing monitoring resolution  
+- Expanding the observation window  
+- Refining baseline behavior estimates  
+- Accumulating additional statistical evidence  
+
+This ensures alerts are neither premature nor missed, enabling **intelligent decision-making under uncertainty**.
+
+---
+
+## 7. Human-in-the-Loop by Design
 
 RegimeShift Sentinel is **advisory, not autonomous**.
 
@@ -91,25 +108,25 @@ This design:
 
 ---
 
-## 7. Rejection Handling & Stabilization Mode
+## 8. Rejection Handling & Stabilization Mode
 
-If a proposed mitigation is **not approved**, the system does not remain passive.
+If a proposed mitigation is **not approved**, the system does not simply continue as before.
 
 Instead, it enters a **Stabilization Mode** — a reversible, low-risk operational state designed to **reduce the probability of cascading failure while maintaining observability**.
 
-### Stabilization Mode may include:
+Stabilization actions may include:
 - Dampening update aggressiveness (e.g., step size, batch size)  
 - Temporarily freezing sensitive parameters  
-- Increasing monitoring resolution  
+- Increasing monitoring granularity  
 - Flagging outputs as tentative or non-final  
 
-The **intensity of stabilization is conditioned on the posterior probability** of regime shift, ensuring proportional and uncertainty-aware response.
+The **intensity of stabilization is conditioned on posterior probability**, ensuring proportional and uncertainty-aware response.
 
 No destructive or irreversible actions are taken.
 
 ---
 
-## 8. System Architecture
+## 9. System Architecture
 
 ### High-Level Flow
 
@@ -117,7 +134,7 @@ No destructive or irreversible actions are taken.
 graph TD
     A[Metric Time-Series Stream] --> B[Bayesian Change-Point Detector]
     B --> C{Posterior Probability > Confidence Threshold?}
-    C -->|No| A
+
     C -->|Yes| D[Early Signal Analyzer]
     D --> E[Mitigation Proposal Engine]
     E --> F[Human Approval Interface]
@@ -125,4 +142,7 @@ graph TD
     G -->|Yes| H[Safe, Reversible Action Executor]
     G -->|No| I[Stabilization Mode]
     I --> J[Risk Dampening & Enhanced Monitoring]
-    H --> K[Examples: pause run, reduce LR, rollback checkpoint]
+
+    C -->|No| K[Adaptive Observation Mode]
+    K --> L[Refine Baselines & Accumulate Evidence]
+    L --> A
