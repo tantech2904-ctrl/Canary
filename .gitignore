@@ -53,5 +53,12 @@ coverage/
 .idea/
 .vscode/
 
+# Optional: exclude non-essential assets for lightweight upload
+.github/
+datasets/
+infra/
+frontend/tests/
+frontend/playwright.config.js
+
 # OS
 .DS_Store
