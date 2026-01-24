@@ -1,13 +1,13 @@
-# RegimeShift Sentinel  
+# Canary — Early warning AI for critical systems
 > An AI-Native Early Warning Platform for High-Stakes Computational Systems
 
 ---
 
 ## 1. Overview
 
-RegimeShift Sentinel is an **AI-native early warning platform** designed to detect **gradual, probabilistic regime shifts** in complex computational systems *before* they escalate into failures.
+Canary is an **AI-native early warning platform** designed to detect **gradual, probabilistic regime shifts** in complex computational systems *before* they escalate into failures.
 
-Unlike traditional monitoring tools that rely on fixed thresholds and reactive alerts, RegimeShift Sentinel reasons about **changes in system behavior over time** using **Bayesian Change-Point Detection (BCPD)**.  
+Unlike traditional monitoring tools that rely on fixed thresholds and reactive alerts, Canary reasons about **changes in system behavior over time** using **Bayesian Change-Point Detection (BCPD)**.  
 It combines uncertainty-aware reasoning, human oversight, and safe stabilization mechanisms to support **early, responsible intervention**.
 
 The platform targets **long-running, expensive, or non-reproducible workflows**, where late detection results in irreversible loss.
@@ -35,7 +35,7 @@ Effective early warning requires **probabilistic reasoning over time**, not rule
 
 ## 3. Design Constraints & Assumptions
 
-RegimeShift Sentinel is designed with the following constraints:
+Canary is designed with the following constraints:
 
 - **Early detection** must analyze statistical behavior, not just pointwise values  
 - **High-stakes systems require safety** — no irreversible or autonomous actions  
@@ -49,7 +49,7 @@ These constraints favor **interpretable, uncertainty-aware AI** over black-box a
 
 ## 4. Proposed Solution
 
-RegimeShift Sentinel is an **AI-native monitoring platform** that continuously learns a baseline of normal system behavior and detects **when that behavior fundamentally changes**.
+Canary is an **AI-native monitoring platform** that continuously learns a baseline of normal system behavior and detects **when that behavior fundamentally changes**.
 
 The platform integrates:
 - **Bayesian Change-Point Detection (BCPD)** for probabilistic regime shift detection  
@@ -96,7 +96,7 @@ This prevents premature alerts while ensuring potential issues are **actively in
 
 ## 7. Human-in-the-Loop by Design
 
-RegimeShift Sentinel is **advisory, not autonomous**.
+Canary is **advisory, not autonomous**.
 
 - All mitigation actions are **suggested**, never enforced  
 - Human operators retain final authority  
