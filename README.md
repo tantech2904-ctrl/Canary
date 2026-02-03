@@ -1,177 +1,133 @@
-# 🐦 Canary  
-### Early Warning AI for Critical Systems
+# Canary
 
-**An AI-Native Early Warning Platform for High-Stakes Computational Systems**
-
-Detect regime shifts *before* they become failures — with uncertainty-aware reasoning, human oversight, and safe stabilization.
+**Early Warning AI for Critical Systems**
+An AI-native early warning platform for high-stakes computational systems.
 
 ---
 
-🚨 **Early Detection** · 🧠 **Bayesian Intelligence** · 👤 **Human-in-the-Loop** · 🛡️ **Safety-First**
+## Overview
 
-</div>
+Canary is an AI-native monitoring platform designed to detect gradual, probabilistic regime shifts in complex computational systems before they escalate into irreversible failures.
 
----
+Traditional monitoring tools rely on static thresholds and reactive alerts. Canary takes a fundamentally different approach by continuously reasoning about how system behavior evolves over time using Bayesian Change-Point Detection (BCPD). This enables early, uncertainty-aware detection of behavioral shifts rather than late-stage failure alerts.
 
-## 🌟 What is Canary?
-
-**Canary** is an AI-native monitoring platform built to detect **gradual, probabilistic regime shifts** in complex computational systems *before* they escalate into irreversible failures.
-
-Unlike traditional monitoring tools that rely on static thresholds and reactive alerts, Canary continuously reasons about **how system behavior changes over time** using **Bayesian Change-Point Detection (BCPD)**.
-
-It combines:
-
-- 📊 **Uncertainty-aware statistical reasoning**
-- 👤 **Human-approved decision making**
-- 🛡️ **Reversible, low-risk stabilization actions**
-
-to enable **early, responsible intervention** in critical systems.
+Canary is built for environments where correctness, safety, and interpretability matter more than aggressive automation.
 
 ---
 
-## 🚨 Why Canary Exists
+## Motivation
 
-In systems such as:
+In high-stakes systems such as:
 
-- Machine learning training runs  
-- Scientific simulations  
-- Production data pipelines  
+* Machine learning training pipelines
+* Scientific simulations
+* Production data processing systems
 
-failures rarely appear as sudden crashes.
+failures rarely appear as sudden crashes. Instead, they emerge gradually through subtle changes in variance, correlation structure, and temporal dynamics.
 
-They emerge slowly — through subtle changes in:
-
-- Variance  
-- Correlation structure  
-- Temporal dynamics  
-
-By the time conventional alerts fire, **compute, time, and trust are already lost**.
-
-Canary is designed to **notice the warning signs early**, when recovery is still possible.
+By the time conventional alerts fire, valuable compute, time, and trust have already been lost. Canary is designed to surface early warning signals when recovery and course correction are still possible.
 
 ---
 
-## ❗ The Problem with Traditional Monitoring
+## Core Capabilities
 
-Conventional monitoring systems typically:
+### Bayesian Change-Point Detection (BCPD)
 
-- 🔔 Depend on **static thresholds**
-- ⏱️ Trigger alerts **after visible failure**
-- ❓ Provide **no confidence or uncertainty estimates**
+Canary continuously learns a baseline model of normal system behavior and estimates the posterior probability that the system has entered a new behavioral regime.
 
-### The result:
-- Wasted compute and time  
-- Silently degraded outputs  
-- Late detection with no safe recovery path  
+This allows Canary to:
 
-**Early warning requires probabilistic reasoning over time — not rule-based alarms.**
+* Detect changes in underlying system dynamics, not just point anomalies
+* Provide probabilistic confidence scores instead of binary alerts
+* Operate robustly in noisy, real-world environments
 
----
+Example output:
 
-## 🎯 Design Principles & Constraints
-
-Canary is intentionally built with the following constraints:
-
-- Early detection must analyze **statistical behavior**, not pointwise values  
-- High-stakes systems require **safety over autonomy**  
-- All mitigations must be **human-approved and reversible**  
-- The system must be **domain-agnostic**, operating on generic time-series metrics  
-- Runtime overhead must remain **lightweight**  
-
-These constraints favor **interpretable, uncertainty-aware AI** over opaque automation.
+> There is an 81% posterior probability that the system entered a new behavioral regime at timestamp T824.
 
 ---
 
-## 🧠 The Canary Approach
+### Adaptive Observation Mode
 
-Canary continuously learns a baseline of *normal* system behavior and detects when that behavior **fundamentally changes**.
+When confidence in a regime shift is low, Canary does not ignore the signal. Instead, it enters Adaptive Observation Mode, where it:
 
-The platform integrates:
+* Increases monitoring resolution
+* Expands observation windows
+* Refines baseline behavior estimates
+* Accumulates additional statistical evidence
 
-- 🧠 **Bayesian Change-Point Detection (BCPD)**  
-- 🔍 **Adaptive Observation Mode** for low-confidence scenarios  
-- ⚠️ **Confidence-conditioned mitigation suggestions**  
-- 👤 **Human-in-the-loop decision making**  
-- 🛡️ **Stabilization Mode** to prevent cascading failures  
-
-At any moment, Canary is doing one of three things:
-
-> **Learning more · Warning early · Stabilizing safely**
+This prevents premature alerts while ensuring potential issues are actively investigated.
 
 ---
 
-## 📊 Why Bayesian Change-Point Detection?
+### Human-in-the-Loop Decision Making
 
-BCPD is central to Canary because it:
+Canary is advisory by design.
 
-- Detects changes in **underlying system dynamics**, not just anomalies  
-- Produces **probabilistic confidence scores**, not binary alerts  
-- Handles **noisy, real-world signals** robustly  
-- Enables principled reasoning under uncertainty  
+* All mitigation actions are suggested, never enforced
+* Human operators retain final authority
+* Domain expertise can override AI recommendations
 
-**Example insight:**
-
-> *“There is an 81% posterior probability that the system entered a new behavioral regime at timestamp T₈₂₄.”*
-
-This allows **early, confidence-aware intervention**, rather than reactive firefighting.
+This approach prioritizes operational safety, trust, and transparency.
 
 ---
 
-## 🔍 Adaptive Observation Mode  
-### (When Confidence is Low)
+### Stabilization Mode
 
-Low confidence is not ignored.
-
-When regime-shift probability does not exceed the confidence threshold, Canary enters **Adaptive Observation Mode**.
-
-In this mode, the system:
-
-- 📈 Increases monitoring resolution  
-- 🪟 Expands the observation window  
-- 🔄 Refines baseline behavior estimates  
-- 📊 Accumulates additional statistical evidence  
-
-This prevents premature alerts while ensuring potential issues are **actively investigated**.
-
----
-
-## 👤 Human-in-the-Loop by Design
-
-Canary is **advisory, not autonomous**.
-
-- All mitigation actions are **suggested, never enforced**
-- Human operators retain **final authority**
-- Domain expertise can override AI recommendations  
-
-This ensures:
-
-- ✅ Operational safety  
-- 🤝 Trust and transparency  
-- 🧭 Alignment with Responsible AI principles  
-
----
-
-## 🛡️ Stabilization Mode  
-### (When Mitigations Are Rejected)
-
-If a proposed mitigation is not approved, Canary does not remain passive.
-
-Instead, it enters **Stabilization Mode** — a reversible, low-risk operational state designed to reduce the chance of cascading failure while preserving observability.
+If suggested mitigations are not approved, Canary enters Stabilization Mode. This is a reversible, low-risk operational state designed to reduce the likelihood of cascading failures while preserving observability.
 
 Possible stabilization actions include:
 
-- 🧯 Dampening update aggressiveness  
-- 🧊 Temporarily freezing sensitive parameters  
-- 🔍 Increasing monitoring granularity  
-- ⚠️ Flagging outputs as tentative  
+* Dampening update aggressiveness
+* Temporarily freezing sensitive parameters
+* Increasing monitoring granularity
+* Flagging outputs as tentative
 
-The **strength of stabilization scales with confidence**.
-
-🚫 **No destructive or irreversible actions are ever taken.**
+The strength of stabilization scales with confidence. No destructive or irreversible actions are ever taken.
 
 ---
 
-## 🏗️ System Architecture
+## Design Principles
+
+Canary is intentionally constrained to ensure safe operation in critical environments:
+
+* Detection is based on statistical behavior, not pointwise thresholds
+* Safety is prioritized over autonomy
+* All actions are reversible and human-approved
+* The system is domain-agnostic and operates on generic time-series metrics
+* Runtime overhead is designed to remain lightweight
+
+These constraints favor interpretable, uncertainty-aware AI over opaque automation.
+
+---
+
+## Use Cases
+
+* Monitoring long-running machine learning training jobs
+* Early detection of instability in scientific simulations
+* Identifying silent degradation in production data pipelines
+* Observability and safety tooling for experimental systems
+
+---
+
+## Project Status
+
+Canary was selected among the **Top 50 projects at Radiothon**, recognizing its technical depth, responsible AI design, and potential impact in high-stakes systems.
+
+---
+
+## License
+
+License information to be added.
+
+---
+
+## Acknowledgements
+
+Inspired by early-warning systems, probabilistic modeling, and the principle that safe AI should assist humans, not replace them.
+
+
+## System Architecture
 
 ### High-Level Flow
 
